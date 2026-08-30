@@ -71,6 +71,13 @@ A serverless pipeline, triggered on a schedule (and extensible to real-time, eve
 | Vulnerability Scanning | Amazon Inspector v2 |
 | Deployment | AWS CLI (native IaC-free deployment) |
 
+## Repository Contents
+
+| File | Description |
+|---|---|
+| `detector.py` | The detection engine source code: baseline building, signal correlation across the 5 AWS services, risk scoring, ASFF finding generation, and SNS alerting. Deployed as the AWS Lambda function's handler. |
+| `detector.zip` | The deployment package uploaded to Lambda. Contains only `detector.py`, since the sole dependency (boto3) already ships built into the Lambda Python runtime, so no external libraries needed to be bundled. |
+
 ## How Detection Works
 
 1. **Baseline building** — from historical CloudTrail activity, establishes per-user normal behavior: typical S3 buckets, IAM roles, regions, and active hours.
